@@ -4,14 +4,7 @@ import { useTranslation } from "react-i18next";
 import api, { fileUrl } from "../lib/api";
 import type { TownInfo, ContactInfo } from "../types";
 import LanguageSwitcher from "../components/LanguageSwitcher";
-
-function FacebookIcon() {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
-      <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.267h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/>
-    </svg>
-  );
-}
+import { SocialIcons, FacebookSvg, InstagramSvg, TwitterSvg, YoutubeSvg } from "../components/social-icons";
 
 export default function PublicLayout() {
   const { t } = useTranslation();
@@ -158,12 +151,12 @@ export default function PublicLayout() {
             <p className="text-xs text-slate-500">
               {t("footer.rights", { year: new Date().getFullYear(), name: town?.name ?? "عسلة" })}
             </p>
-            {contact?.facebook && (
-              <a href={contact.facebook} target="_blank" rel="noreferrer" aria-label="Facebook"
-                className="flex h-9 w-9 items-center justify-center rounded-full bg-[#1877F2] text-white hover:bg-[#166fe5] transition-colors">
-                <FacebookIcon />
-              </a>
-            )}
+            <SocialIcons socials={[
+              ...(contact?.facebook ? [{ name: "Facebook", href: contact.facebook, icon: FacebookSvg }] : []),
+              ...(contact?.instagram ? [{ name: "Instagram", href: contact.instagram, icon: InstagramSvg }] : []),
+              ...(contact?.twitter ? [{ name: "X", href: contact.twitter, icon: TwitterSvg }] : []),
+              ...(contact?.youtube ? [{ name: "YouTube", href: contact.youtube, icon: YoutubeSvg }] : []),
+            ]} />
           </div>
         </div>
       </footer>
