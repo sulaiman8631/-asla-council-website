@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import api from "../lib/api";
 import type { ContactInfo } from "../types";
 import { Card, ErrorBox, PageHeader, Spinner } from "../components/ui";
-import { SocialIcons, FacebookSvg, InstagramSvg, TwitterSvg, YoutubeSvg } from "../components/social-icons";
+import { FacebookSvg, InstagramSvg, TwitterSvg, YoutubeSvg } from "../components/social-icons";
 
 const initialForm = { name: "", email: "", subject: "", message: "" };
 
@@ -65,13 +65,31 @@ export default function Contact() {
                 </ul>
 
                 {(info?.facebook || info?.instagram || info?.twitter || info?.youtube) && (
-                  <div className="mt-5">
-                    <SocialIcons socials={[
-                      ...(info.facebook ? [{ name: "Facebook", href: info.facebook, icon: FacebookSvg }] : []),
-                      ...(info.instagram ? [{ name: "Instagram", href: info.instagram, icon: InstagramSvg }] : []),
-                      ...(info.twitter ? [{ name: "X", href: info.twitter, icon: TwitterSvg }] : []),
-                      ...(info.youtube ? [{ name: "YouTube", href: info.youtube, icon: YoutubeSvg }] : []),
-                    ]} />
+                  <div className="mt-5 flex gap-2">
+                    {info.facebook && (
+                      <a href={info.facebook} target="_blank" rel="noreferrer" aria-label="Facebook"
+                        className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-600 text-white hover:bg-brand-700 transition-colors">
+                        {FacebookSvg}
+                      </a>
+                    )}
+                    {info.instagram && (
+                      <a href={info.instagram} target="_blank" rel="noreferrer" aria-label="Instagram"
+                        className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-600 text-white hover:bg-brand-700 transition-colors">
+                        {InstagramSvg}
+                      </a>
+                    )}
+                    {info.twitter && (
+                      <a href={info.twitter} target="_blank" rel="noreferrer" aria-label="X"
+                        className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-600 text-white hover:bg-brand-700 transition-colors">
+                        {TwitterSvg}
+                      </a>
+                    )}
+                    {info.youtube && (
+                      <a href={info.youtube} target="_blank" rel="noreferrer" aria-label="YouTube"
+                        className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-600 text-white hover:bg-brand-700 transition-colors">
+                        {YoutubeSvg}
+                      </a>
+                    )}
                   </div>
                 )}
               </Card>

@@ -71,7 +71,7 @@ export default function PublicLayout() {
             <LanguageSwitcher className="ms-2" />
             {contact?.facebook && (
               <a href={contact.facebook} target="_blank" rel="noreferrer" aria-label="Facebook"
-                className="ms-1 flex h-8 w-8 items-center justify-center rounded-full bg-[#1877F2] text-white hover:bg-[#166fe5] transition-colors">
+                className="ms-1 flex h-8 w-8 items-center justify-center rounded-full bg-brand-600 text-white hover:bg-brand-700 transition-colors">
                 {FacebookSvg}
               </a>
             )}
@@ -80,7 +80,7 @@ export default function PublicLayout() {
           <div className="flex items-center gap-2 lg:hidden">
             {contact?.facebook && (
               <a href={contact.facebook} target="_blank" rel="noreferrer" aria-label="Facebook"
-                className="flex h-8 w-8 items-center justify-center rounded-full bg-[#1877F2] text-white hover:bg-[#166fe5] transition-colors">
+                className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-600 text-white hover:bg-brand-700 transition-colors">
                 {FacebookSvg}
               </a>
             )}
@@ -163,12 +163,32 @@ export default function PublicLayout() {
             <p className="text-xs text-slate-500">
               {t("footer.rights", { year: new Date().getFullYear(), name: town?.name ?? "عسلة" })}
             </p>
-            <SocialIcons socials={[
-              ...(contact?.facebook ? [{ name: "Facebook", href: contact.facebook, icon: FacebookSvg }] : []),
-              ...(contact?.instagram ? [{ name: "Instagram", href: contact.instagram, icon: InstagramSvg }] : []),
-              ...(contact?.twitter ? [{ name: "X", href: contact.twitter, icon: TwitterSvg }] : []),
-              ...(contact?.youtube ? [{ name: "YouTube", href: contact.youtube, icon: YoutubeSvg }] : []),
-            ]} />
+            <div className="flex items-center gap-2">
+              {contact?.facebook && (
+                <a href={contact.facebook} target="_blank" rel="noreferrer" aria-label="Facebook"
+                  className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-600 text-white hover:bg-brand-700 transition-colors">
+                  {FacebookSvg}
+                </a>
+              )}
+              {contact?.instagram && (
+                <a href={contact.instagram} target="_blank" rel="noreferrer" aria-label="Instagram"
+                  className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-600 text-white hover:bg-brand-700 transition-colors">
+                  {InstagramSvg}
+                </a>
+              )}
+              {contact?.twitter && (
+                <a href={contact.twitter} target="_blank" rel="noreferrer" aria-label="X"
+                  className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-600 text-white hover:bg-brand-700 transition-colors">
+                  {TwitterSvg}
+                </a>
+              )}
+              {contact?.youtube && (
+                <a href={contact.youtube} target="_blank" rel="noreferrer" aria-label="YouTube"
+                  className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-600 text-white hover:bg-brand-700 transition-colors">
+                  {YoutubeSvg}
+                </a>
+              )}
+            </div>
           </div>
         </div>
       </footer>
