@@ -1,0 +1,9 @@
+node_modules/
+dist/
+dist-ssr/
+.env
+*.local
+backend/uploads/*
+!backend/uploads/.gitkeep
+backend/backend-err.txt
+backend/backend-out.txt

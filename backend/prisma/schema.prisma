@@ -1,0 +1,186 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id           Int      @id @default(autoincrement())
+  username     String   @unique
+  passwordHash String   @map("password_hash")
+  role         String   @default("admin")
+  news         News[]
+  jobs         Job[]
+  tenders      Tender[]
+  reports      Report[]
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@map("admins")
+}
+
+model Category {
+  id      Int      @id @default(autoincrement())
+  name    String
+  kind    String
+  news    News[]
+  reports Report[]
+
+  @@unique([name, kind])
+  @@map("categories")
+}
+
+model News {
+  id          Int         @id @default(autoincrement())
+  title       String
+  body        String
+  coverImage  String?     @map("cover_image")
+  category    Category?   @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  categoryId  Int?        @map("category_id")
+  author      Admin       @relation(fields: [createdBy], references: [id], onDelete: Restrict)
+  createdBy   Int         @map("created_by")
+  isPublished Boolean     @default(true) @map("is_published")
+  publishedAt DateTime    @default(now()) @map("published_at")
+  createdAt   DateTime    @default(now()) @map("created_at")
+  updatedAt   DateTime    @updatedAt @map("updated_at")
+  images      NewsImage[]
+
+  @@map("news")
+}
+
+model NewsImage {
+  id        Int     @id @default(autoincrement())
+  news      News    @relation(fields: [newsId], references: [id], onDelete: Cascade)
+  newsId    Int     @map("news_id")
+  url       String
+  isMain    Boolean @default(false) @map("is_main")
+  sortOrder Int     @default(0) @map("sort_order")
+
+  @@map("news_images")
+}
+
+model Job {
+  id           Int      @id @default(autoincrement())
+  title        String
+  description  String
+  requirements String?
+  type         String?
+  location     String   @default("عسلة")
+  deadline     DateTime @db.Date
+  status       String   @default("open")
+  attachment   String?
+  author       Admin    @relation(fields: [createdBy], references: [id], onDelete: Restrict)
+  createdBy    Int      @map("created_by")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@map("jobs")
+}
+
+model Tender {
+  id           Int      @id @default(autoincrement())
+  referenceNo  String   @unique @map("reference_no")
+  title        String
+  description  String?
+  document     String?
+  publishDate  DateTime @default(now()) @map("publish_date") @db.Date
+  deadline     DateTime @db.Date
+  status       String   @default("open")
+  author       Admin    @relation(fields: [createdBy], references: [id], onDelete: Restrict)
+  createdBy    Int      @map("created_by")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@map("tenders")
+}
+
+model Report {
+  id          Int       @id @default(autoincrement())
+  title       String
+  description String?
+  file        String
+  category    Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  categoryId  Int?      @map("category_id")
+  year        Int?
+  publishedAt DateTime  @default(now()) @map("published_at")
+  author      Admin     @relation(fields: [createdBy], references: [id], onDelete: Restrict)
+  createdBy   Int       @map("created_by")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  @@map("reports")
+}
+
+model GalleryImage {
+  id        Int      @id @default(autoincrement())
+  url       String
+  caption   String?
+  sortOrder Int      @default(0) @map("sort_order")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("gallery_images")
+}
+
+model TownInfo {
+  id          Int             @id @default(autoincrement())
+  name        String          @default("عسلة")
+  tagline     String?
+  about       String?
+  history     String?
+  population  Int?
+  area        String?
+  established String?
+  mayorName   String?         @map("mayor_name")
+  logo        String?
+  statistics  TownStatistic[]
+  createdAt   DateTime        @default(now()) @map("created_at")
+  updatedAt   DateTime        @updatedAt @map("updated_at")
+
+  @@map("town_info")
+}
+
+model TownStatistic {
+  id         Int      @id @default(autoincrement())
+  townInfo   TownInfo @relation(fields: [townInfoId], references: [id], onDelete: Cascade)
+  townInfoId Int      @map("town_info_id")
+  label      String
+  value      String
+  sortOrder  Int      @default(0) @map("sort_order")
+
+  @@map("town_statistics")
+}
+
+model ContactInfo {
+  id            Int      @id @default(autoincrement())
+  address       String?
+  phone         String?
+  email         String?
+  workingHours  String?  @map("working_hours")
+  mapEmbedUrl   String?  @map("map_embed_url")
+  lat           Float?
+  lng           Float?
+  facebook      String?
+  instagram     String?
+  twitter       String?
+  youtube       String?
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  @@map("contact_info")
+}
+
+model ContactMessage {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String?
+  subject   String?
+  message   String
+  isRead    Boolean  @default(false) @map("is_read")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("contact_messages")
+}

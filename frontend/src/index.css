@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Cairo", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: "El Messiri", "Cairo", ui-sans-serif, system-ui, sans-serif;
+  --color-brand-50: #eefaf0;
+  --color-brand-100: #d6f1db;
+  --color-brand-200: #aee2b9;
+  --color-brand-300: #7ccd91;
+  --color-brand-400: #4cb46c;
+  --color-brand-500: #2f9750;
+  --color-brand-600: #22793f;
+  --color-brand-700: #1d5f34;
+  --color-brand-800: #1a4c2c;
+  --color-brand-900: #163f26;
+}
+
+html,
+body {
+  font-family: var(--font-sans);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-heading);
+}
+
+/* Thick hover shadow used on interactive cards */
+.shadow-card {
+  box-shadow: 0 4px 16px -2px rgb(0 0 0 / 0.10), 0 2px 6px -2px rgb(0 0 0 / 0.06);
+}
+.shadow-card-hover {
+  box-shadow: 0 24px 48px -8px rgb(0 0 0 / 0.22), 0 10px 20px -6px rgb(0 0 0 / 0.12);
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
