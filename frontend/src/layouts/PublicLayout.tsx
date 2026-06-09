@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import api, { fileUrl } from "../lib/api";
 import type { TownInfo, ContactInfo } from "../types";
 import LanguageSwitcher from "../components/LanguageSwitcher";
-import { SocialIcons, FacebookSvg, InstagramSvg, TwitterSvg, YoutubeSvg } from "../components/social-icons";
+import { FacebookSvg, InstagramSvg, TwitterSvg, YoutubeSvg } from "../components/social-icons";
 
 export default function PublicLayout() {
   const { t } = useTranslation();
