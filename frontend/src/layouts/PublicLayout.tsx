@@ -69,9 +69,21 @@ export default function PublicLayout() {
               </NavLink>
             ))}
             <LanguageSwitcher className="ms-2" />
+            {contact?.facebook && (
+              <a href={contact.facebook} target="_blank" rel="noreferrer" aria-label="Facebook"
+                className="ms-1 flex h-8 w-8 items-center justify-center rounded-full bg-[#1877F2] text-white hover:bg-[#166fe5] transition-colors">
+                {FacebookSvg}
+              </a>
+            )}
           </nav>
 
           <div className="flex items-center gap-2 lg:hidden">
+            {contact?.facebook && (
+              <a href={contact.facebook} target="_blank" rel="noreferrer" aria-label="Facebook"
+                className="flex h-8 w-8 items-center justify-center rounded-full bg-[#1877F2] text-white hover:bg-[#166fe5] transition-colors">
+                {FacebookSvg}
+              </a>
+            )}
             <LanguageSwitcher />
             <button
               type="button"
